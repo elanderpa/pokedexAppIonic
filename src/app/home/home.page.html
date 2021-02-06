@@ -1,20 +1,29 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" class="ion-no-border main-header">
+  <img class="header-pokeball-img" src="../../assets/imgs/gray-pokeball.png">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <div class="tittles">
+      <h4>Whats Pokemon are you looking for?</h4>
+      <ion-searchbar></ion-searchbar>
+    </div>
+    <ion-grid fixed>
+      <ion-row class="category-buttons-container">
+        <ion-col size="6" *ngFor="let item of categoryButtons">
+
+          <ion-button (click)="onClick()" expand="block" [class]="item.colorButton">
+            
+            <p>{{item.name}}</p>
+            <img class="button-pokeball-img" src="../../assets/imgs/gray-pokeball.png">
+
+          </ion-button>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-toolbar>
+
+
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="false">
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
 </ion-content>
