@@ -1,0 +1,45 @@
+p {
+    color: #FFFFFF;
+}
+
+.pokedex-toolbar {
+  padding-top: 3rem;
+}
+
+ion-content {
+  --padding-start: 1.3rem;
+  --padding-end: 1.3rem;
+}
+
+.pokemon {
+    height: 6rem;
+    /* background-color: #48D0B0; */
+    border-radius: 10px;
+}
+
+.pokemon-name {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.pokemon-name::first-letter {
+    text-transform: uppercase;
+}
+
+.pokemon-number {
+    margin: 0;
+    text-align: end;
+}
+
+.pokemon-images {
+    .pokeball-img {
+        position: absolute;
+    }
+}
+
+
+ion-badge {
+    --background: rgba(255,2552,255,0.5);
+    font-size: 10px;
+}

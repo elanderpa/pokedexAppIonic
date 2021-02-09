@@ -1,0 +1,45 @@
+<ion-header class="ion-no-border">
+  <img class="header-pokeball-img" src="../../assets/imgs/gray-pokeball.png">
+  <ion-toolbar class="pokedex-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button mode="md" icon="arrow-back-outline"></ion-back-button>
+    </ion-buttons>
+    <h3>Pokedex</h3>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="6" *ngFor="let pokemon of pokemons">
+          <div class="pokemon {{pokemon.pokemon_detail.species.specie_details.color.name}}" *ngIf="pokemon.pokemon_detail && pokemon.pokemon_detail.species.specie_details">
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="7" *ngIf="pokemon.pokemon_detail && pokemon.pokemon_detail.types">
+                  <p class="pokemon-name">{{pokemon.name}}</p>
+                  <ion-badge *ngFor="let type of pokemon.pokemon_detail.types">{{type.type.name}}</ion-badge>
+                </ion-col>
+                <ion-col size="5" *ngIf="pokemon.pokemon_detail && pokemon.pokemon_detail.id">
+                  <p class="pokemon-number">#{{pokemon.pokemon_detail.id}}</p>
+                  <div class="pokemon-images">
+                    <img class="pokeball-img" src="../../assets/imgs/gray-pokeball.png">
+                    <img class="" src="https://pokeres.bastionbot.org/images/pokemon/{{pokemon.pokemon_detail.id}}.png?raw=true">
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+
+  <ion-infinite-scroll threshold="50px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

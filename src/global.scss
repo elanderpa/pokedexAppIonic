@@ -24,3 +24,55 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.header-pokeball-img {
+    position: absolute;
+    top: -58px;
+    right: -78px;
+    z-index: 100;
+  }
+
+.yellow {
+  background-color: #FFCE4B !important;
+}
+
+.green {
+  //background-color: #4FC1A6 !important;
+  background-color: rgba($color: #4FC1A6, $alpha: 0.7) !important;
+}
+
+.blue {
+  //background-color: #58ABF6 !important;
+  background-color: rgba($color: #58ABF6, $alpha: 0.7) !important;
+
+}
+
+.red {
+  //background-color: #F7786B !important;
+  background-color: rgba($color: #FB6C6C, $alpha: 0.8) !important;
+
+}
+
+.white {
+  background-color: #EEEEEE !important;
+}
+
+.brown {
+  background-color: #B1736C !important;
+}
+
+.purple {
+  background-color: #7C538C !important;
+}
+
+.pink {
+  background-color: #DB7093 !important;
+}
+
+.gray {
+  background-color: #696969 !important;
+}
+
+.black {
+  background-color: #000000;
+}
