@@ -1,0 +1,112 @@
+.yellow {
+  --background: #FFCE4B !important;
+}
+
+.green {
+  //background-color: #4FC1A6 !important;
+  --background: rgba($color: #4FC1A6, $alpha: 0.7) !important;
+}
+
+.blue {
+  //background-color: #58ABF6 !important;
+  --background: rgba($color: #58ABF6, $alpha: 0.7) !important;
+
+}
+
+.red {
+  //background-color: #F7786B !important;
+  --background: rgba($color: #FB6C6C, $alpha: 0.8) !important;
+
+}
+
+.white {
+  --background: #EEEEEE !important;
+}
+
+.brown {
+  --background: #B1736C !important;
+}
+
+.purple {
+  --background: #7C538C !important;
+}
+
+.pink {
+  --background: #DB7093 !important;
+}
+
+.gray {
+  --background: #696969 !important;
+}
+
+.black {
+  --background: #000000;
+}
+
+ion-toolbar {
+  color: white;
+}
+
+ion-badge {
+  --background: rgba(255, 2552, 255, 0.5);
+  font-size: 10px;
+  margin-right: 5px;
+}
+
+.pokemon-name {
+  font-weight: bold;
+  display: contents;
+}
+
+.description-container {
+
+  display: flex;
+  justify-content: space-between;
+  height: 35px;
+  color: white;
+
+  .description-type {
+    line-height: 3.5rem;
+  }
+
+  .description-genra {}
+}
+
+.pokemon-detail-container {
+  text-align: center;
+
+  img {
+    width: 35%;
+  }
+
+  .pokemon-details {
+    background-color: white;
+    border-radius: 25px 25px 0 0;
+  }
+  
+}
+
+.pokemon-type {
+  padding: 0 30px;
+}
+
+ion-segment { 
+  padding-top: 25px;
+  ion-segment-button {
+    text-transform: capitalize;
+    font-weight: 600;
+  }
+}
+
+.segment-selected {
+  padding: 0 30px;
+}
+
+.pokemon-description {
+  text-align: justify;
+}
+
+.pokemon-sizes {
+  font-weight: 600;
+  color: #C6C6C6;
+}

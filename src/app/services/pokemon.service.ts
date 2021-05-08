@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { delay, map } from 'rxjs/operators';
-import { PokemonDetail, ReqRes, SpecieDetail } from '../models/pokemon.interface';
+import { PokemonDetail, ReqRes, SpecieDetail, EvolutionChain, Evolutions } from '../models/pokemon.interface';
 
 
 @Injectable({
@@ -18,18 +18,20 @@ export class PokemonService {
 
     return this.http.get<ReqRes>(query).pipe(
       map(resp => {
-          resp.results.map(pokemon => {
-            console.log('resp', pokemon);
-            this.getPokemonDetails(pokemon.url).subscribe(pokemonDetail => {
-              pokemon.pokemon_detail = pokemonDetail;
-              this.getPokemonSpecieDetails(pokemon.pokemon_detail.species.url).subscribe(speciesDetails => {
-                pokemon.pokemon_detail.species.specie_details = speciesDetails;
+        resp.results.map(pokemon => {
+          this.getPokemonDetails(pokemon.url).subscribe(pokemonDetail => {
+            pokemon.pokemon_detail = pokemonDetail;
+            this.getPokemonSpecieDetails(pokemon.pokemon_detail.species.url).subscribe(speciesDetails => {
+              pokemon.pokemon_detail.species.specie_details = speciesDetails;
+              this.getEvolutionDetails(speciesDetails.evolution_chain.url).subscribe(evolutions => {
+                pokemon.pokemon_detail.species.specie_details.evolution_chain.evolutions = evolutions;
               });
             });
-
           });
 
-          return resp;
+        });
+
+        return resp;
 
       }),
     );
@@ -42,6 +44,10 @@ export class PokemonService {
   public getPokemonSpecieDetails(query) {
     return this.http.get<SpecieDetail>(query);
 
+  }
+
+  public getEvolutionDetails(query) {
+    return this.http.get<Evolutions>(query);
   }
 }
 

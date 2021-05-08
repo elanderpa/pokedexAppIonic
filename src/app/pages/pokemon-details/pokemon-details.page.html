@@ -1,0 +1,90 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="pokedex-toolbar {{pokeDetails.species.specie_details.color.name}}">
+    <ion-buttons slot="start">
+      <ion-back-button mode="md" icon="arrow-back-outline"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="heart-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="pokemon-detail-container {{pokeDetails.species.specie_details.color.name}}">
+    <div class="pokemon-type">
+      <div class="description-container">
+        <h3 class="pokemon-name description-type">{{pokeDetails.species.name | titlecase}}</h3>
+        <p>#{{pokeDetails.id}}</p>
+      </div>
+      <div class="description-container">
+        <div class="description-type">
+          <ion-badge *ngFor="let type of pokeDetails.types">{{type.type.name}}</ion-badge>
+        </div>
+        <div class="description-genra">
+          <p>{{pokeDetails.species.specie_details.genera[5].genus}}</p>
+        </div>
+      </div>
+    </div>
+
+    <img _ngcontent-qsh-c134="" src="https://pokeres.bastionbot.org/images/pokemon/{{pokeDetails.id}}.png?raw=true"
+      style="
+    ">
+    <div class="pokemon-details">
+      <ion-segment (ionChange)="segmentChanged($event)" [value]="segmentSelected">
+        <ion-segment-button value="abouts">
+          <ion-label>About</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="base-stats">
+          <ion-label>Base Stats</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="evolution">
+          <ion-label>Evolution</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="moves">
+          <ion-label>Moves</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+
+      <div class="segment-selected">
+        <div *ngIf="segmentSelected === 'abouts'">
+          <p class="pokemon-description">{{pokeDescription}}</p>
+
+          <ion-card>
+            <ion-row class="pokemon-sizes">
+              <ion-col>Height</ion-col>
+              <ion-col>Weight</ion-col>
+            </ion-row>
+            <ion-row class="pokemon-sizes-description">
+              <ion-col>{{pokemonHeight}} c.m</ion-col>
+              <ion-col>{{(pokemonWeightInPounds | number: '1.1-1')}} lbs ({{pokemonWeightInKilograms | number: '1.1-1'}} kg)</ion-col>
+            </ion-row>
+          </ion-card>
+        </div>
+
+        <div *ngIf="segmentSelected === 'base-stats'">
+          Base Stats
+        </div>
+
+        <div *ngIf="segmentSelected === 'evolution'">
+          Evolution
+        </div>
+
+        <div *ngIf="segmentSelected === 'moves'">
+          Moves
+        </div>
+      </div>
+
+
+
+
+
+    </div>
+  </div>
+
+
+</ion-content>

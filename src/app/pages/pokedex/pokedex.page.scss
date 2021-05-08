@@ -2,10 +2,6 @@ p {
     color: #FFFFFF;
 }
 
-.pokedex-toolbar {
-  padding-top: 3rem;
-}
-
 ion-content {
   --padding-start: 1.3rem;
   --padding-end: 1.3rem;
@@ -42,4 +38,7 @@ ion-content {
 ion-badge {
     --background: rgba(255,2552,255,0.5);
     font-size: 10px;
+    margin: 5px;
+    width: 60%;
+    display: block;
 }
