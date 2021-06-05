@@ -1,6 +1,19 @@
+import { PokemonService } from './../../services/pokemon.service';
+import { Chain } from './../../models/pokemon.interface';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { PokemonDetail } from '../../models/pokemon.interface';
+
+interface EvoChain {
+  name:     string;
+  urlImage: Promise<string>;
+  evolTo:   EvolTo;
+}
+
+interface EvolTo {
+  name:     string;
+  urlImage: Promise<string>;
+}
 
 @Component({
   selector: 'app-pokemon-details',
@@ -17,7 +30,13 @@ export class PokemonDetailsPage implements OnInit {
   public pokemonWeightInPounds: number;
   public pokemonWeightInKilograms: number;
 
-  constructor(private activatedroute: ActivatedRoute, private router: Router) {
+  public evolutionChain: Array<any> = [];
+
+  public evoChain: EvoChain[] = [];
+
+  public defaultPokeImg: string = '../../../assets/imgs/whos-that-pokemon.png';
+
+  constructor(private router: Router, private pokemonService: PokemonService) {
 
     this.segmentSelected = 'abouts';
 
@@ -26,17 +45,16 @@ export class PokemonDetailsPage implements OnInit {
       this.pokeDetails = this.router.getCurrentNavigation().extras.state.pokeDetails;
       this.getPokemonHeightAndWeight();
     }
-    console.log('constructor');
+    console.log('constructor', this.pokeDetails);
+
+    this.geEvolutions();
   }
 
   ngOnInit() {
-    this.activatedroute.data.subscribe(data => {
-      console.log('data', data);
-    });
+
   }
 
   public segmentChanged(event: CustomEvent) {
-    console.log('segmentChanged', event);
 
     this.segmentSelected = event.detail.value;
   }
@@ -53,7 +71,58 @@ export class PokemonDetailsPage implements OnInit {
 
   get pokeDescription() {
     return this.pokeDetails.species.specie_details.flavor_text_entries
-    .find(flavorText => flavorText.language.name === 'es').flavor_text || '';
+      .find(flavorText => flavorText.language.name === 'es').flavor_text || '';
+  }
+
+  public getBaseStat(baseStat) {
+    console.log('getBaseStat', baseStat);
+
+    return baseStat / 100;
+  }
+
+  private geEvolutions() {
+
+    if (this.pokeDetails.species.specie_details.evolution_chain.evolutions.chain.evolves_to.length) {
+
+    }
+
+    let evolvesTo: Chain[] = [...this.pokeDetails.species.specie_details.evolution_chain.evolutions.chain.evolves_to];
+
+    let prevPokemon = this.pokeDetails.species.specie_details.evolution_chain.evolutions.chain.species.name;
+    
+    do {
+
+      this.evoChain.push({
+        name: prevPokemon,
+        urlImage: this.buildPokeUrlImg(prevPokemon),
+        evolTo: {
+          name: evolvesTo[0]?.species.name || '',
+          urlImage: this.buildPokeUrlImg(evolvesTo[0]?.species.name)
+        }
+      });
+
+      prevPokemon = evolvesTo[0]?.species.name || '';
+      evolvesTo = evolvesTo[0]?.evolves_to || [];
+    } while (evolvesTo.length);
+    console.log('evoChainseje', this.evoChain);
+  }
+
+  buildPokeUrlImg(name: string): Promise<string> {
+
+    return new Promise<string>((resolve) => {
+
+        if (!name || !name.length) {
+          resolve(this.defaultPokeImg);
+          return;
+        }
+
+        this.pokemonService.searchPokemon(name).subscribe(({ id }) => {
+          
+          const urlImg = `https://pokeres.bastionbot.org/images/pokemon/${id}.png?raw=true`;
+          resolve(urlImg);
+        });
+    });
+
   }
 
 }

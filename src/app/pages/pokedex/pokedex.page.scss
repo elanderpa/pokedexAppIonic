@@ -13,6 +13,12 @@ ion-content {
     border-radius: 10px;
 }
 
+.text-black {
+    p, ion-badge {
+        color: black;
+    }
+}
+
 .pokemon-name {
     font-size: 12px;
     font-weight: bold;

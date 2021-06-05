@@ -13,7 +13,7 @@ import { PokemonDetailsPage } from './pokemon-details.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    PokemonDetailsPageRoutingModule
+    PokemonDetailsPageRoutingModule,
   ],
   declarations: [PokemonDetailsPage]
 })

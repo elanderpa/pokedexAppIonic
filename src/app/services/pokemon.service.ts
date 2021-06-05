@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { delay, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { PokemonDetail, ReqRes, SpecieDetail, EvolutionChain, Evolutions } from '../models/pokemon.interface';
 
 
@@ -35,6 +35,10 @@ export class PokemonService {
 
       }),
     );
+  }
+
+  public searchPokemon(name: string) {
+    return this.http.get<PokemonDetail>(`${this.urlPokeApi}pokemon/${name}`);
   }
 
   public getPokemonDetails(query) {

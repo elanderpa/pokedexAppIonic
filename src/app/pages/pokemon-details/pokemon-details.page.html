@@ -1,5 +1,6 @@
 <ion-header class="ion-no-border">
-  <ion-toolbar class="pokedex-toolbar {{pokeDetails.species.specie_details.color.name}}">
+  <ion-toolbar class="pokedex-toolbar {{pokeDetails.species.specie_details.color.name}}"
+    [ngClass]="{'text-black': pokeDetails.species.specie_details.color.name === 'white'}">
     <ion-buttons slot="start">
       <ion-back-button mode="md" icon="arrow-back-outline"></ion-back-button>
     </ion-buttons>
@@ -13,7 +14,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [ngClass]="{'text-black': pokeDetails.species.specie_details.color.name === 'white'}">
 
   <div class="pokemon-detail-container {{pokeDetails.species.specie_details.color.name}}">
     <div class="pokemon-type">
@@ -31,9 +32,7 @@
       </div>
     </div>
 
-    <img _ngcontent-qsh-c134="" src="https://pokeres.bastionbot.org/images/pokemon/{{pokeDetails.id}}.png?raw=true"
-      style="
-    ">
+    <img _ngcontent-qsh-c134="" src="https://pokeres.bastionbot.org/images/pokemon/{{pokeDetails.id}}.png?raw=true">
     <div class="pokemon-details">
       <ion-segment (ionChange)="segmentChanged($event)" [value]="segmentSelected">
         <ion-segment-button value="abouts">
@@ -55,23 +54,64 @@
           <p class="pokemon-description">{{pokeDescription}}</p>
 
           <ion-card>
-            <ion-row class="pokemon-sizes">
+            <ion-row class="pokemon-gray-tittle">
               <ion-col>Height</ion-col>
               <ion-col>Weight</ion-col>
             </ion-row>
             <ion-row class="pokemon-sizes-description">
               <ion-col>{{pokemonHeight}} c.m</ion-col>
-              <ion-col>{{(pokemonWeightInPounds | number: '1.1-1')}} lbs ({{pokemonWeightInKilograms | number: '1.1-1'}} kg)</ion-col>
+              <ion-col>{{(pokemonWeightInPounds | number: '1.1-1')}} lbs ({{pokemonWeightInKilograms | number: '1.1-1'}}
+                kg)</ion-col>
             </ion-row>
           </ion-card>
+          <p class="title">Breeding</p>
+          <div class="d-flex">
+            <p class="pokemon-gray-tittle">Gender</p>
+            <p class="pokemon-egg-group" *ngFor="let egg_group of pokeDetails.species.specie_details.egg_groups">
+              {{egg_group.name }}</p>
+          </div>
+
+
+
         </div>
 
         <div *ngIf="segmentSelected === 'base-stats'">
-          Base Stats
+          <ion-row class="ion-text-start" *ngFor="let stat of pokeDetails.stats">
+            <ion-col class="pokemon-stat-name" size="5">{{stat.stat.name}}</ion-col>
+            <ion-col size="2">{{stat.base_stat}}</ion-col>
+            <ion-col class="position-relative">
+              <ion-progress-bar class="position-absolute" color="primary" [value]="getBaseStat(stat.base_stat)">
+              </ion-progress-bar>
+            </ion-col>
+          </ion-row>
         </div>
 
         <div *ngIf="segmentSelected === 'evolution'">
-          Evolution
+          <div class="evolution-content">
+            <ion-row *ngFor="let pokemon of evoChain">
+              <ion-col size="4">
+                <img [src]="(pokemon.urlImage | async) || (defaultPokeImg)">
+                <p>{{pokemon.name}}</p>
+              </ion-col>
+              <ion-col size="2">
+                <span class="arrow">&#8594;</span>
+              </ion-col>
+              <ion-col size="4">
+                <img [src]="(pokemon.evolTo.urlImage | async) || (defaultPokeImg)">
+                <p>{{pokemon.evolTo.name}}</p>
+              </ion-col>
+              <!-- <ion-col size="2">
+              </ion-col>
+              <ion-col size="4">
+              </ion-col>
+              <ion-col size="4">
+                <img src="https://pokeres.bastionbot.org/images/pokemon/{{pokeDetails.id}}.png?raw=true">
+              </ion-col>
+              <ion-col size="4">
+                <img src="https://pokeres.bastionbot.org/images/pokemon/{{pokeDetails.id}}.png?raw=true">
+              </ion-col> -->
+            </ion-row>
+          </div>
         </div>
 
         <div *ngIf="segmentSelected === 'moves'">
